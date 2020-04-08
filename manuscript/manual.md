@@ -163,7 +163,7 @@ println!("{}", res);
 always `wait` must be called in a long running process so that process that's created is cleanedup.
 
 ### std::net
-i
+
 **std::net::TcpStream**:
 
 | `connect` | connect to a ip and port |
@@ -191,6 +191,7 @@ fn main() {
 **std::net::TcpListener**::
 
 | `bind` | bind to the ip and port |
+| `accept` | accept connections |
 | `incoming` | accepts incoming connections |
 
 
