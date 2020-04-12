@@ -38,6 +38,31 @@ def = "new string";
 
 changing the variable to other name, would result in a compiler error. Rust variables are by default mutable. Changing the value results in a compiler error.
 
+## print macro
+
+
+`println!` - is a macro that prints a new line at the end
+`print!` - is a macro that doesn't print a new line at the end
+
+printing an element will need to use `"{}"` 
+
+to print two values, we must use `"{}"` two times
+
+
+```rust
+
+fn main() {
+    println!("---- println example ----");
+
+    let x = 1;
+    let y = 1;
+
+    println!("x: {}, y: {}", x, y);
+}
+
+```
+
+
 ## conditional
 
 ```rust
@@ -101,9 +126,16 @@ if res {
 
 ## std::string::String
 
+Creating a string can be done more than one way
+
+```rust
+
+let str = "Hello";
+
+```
 `std::string::String` expose the following methods.
 
-1. new - create new string
+1. **new** - create new string
 
 ```rust
 
@@ -111,7 +143,7 @@ let mut s = String::new();
 
 ```
 
-2. push_str - push string into the string
+2. **push_str** - push string into the string
 
 ```rust
 
@@ -135,7 +167,7 @@ s.push_str(s3);
 
 ```
 
-3. reserve - reserve string size
+3. **reserve** - reserve string size
 
 ```rust
 
@@ -145,7 +177,88 @@ s.reserve(40);
 
 ```
 
+4. **capacity** - return string capacity
+
+```rust
+
+let mut s = String::new();
+
+s.reserve(40);
+
+println!("capacity {}", s.capacity());
+
 ```
+
+5. **is_empty** - validate if string is empty
+
+```rust
+
+let mut s = String::new();
+
+s.reserve(40);
+
+if s.is_empty() == true {
+    println!("empty string");
+} else {
+    println!("non empty string");
+}
+
+```
+
+6. **len** - get len of the string
+
+
+```rust
+
+let mut s = String::new();
+println!("len {}", s.len());
+
+```
+
+**Example**:
+
+```rust
+
+use std;
+
+fn string_details(s : &String)
+{
+    println!("capacity {}", s.capacity());
+    println!("empty {}", s.is_empty());
+    if s.is_empty() == false {
+        println!("\tstring {}", s);
+    }
+    println!("length {}", s.len());
+}
+
+fn main() {
+    // create new empty string
+    let mut s = String::new();
+    string_details(&s);
+
+    s.reserve(40);
+    string_details(&s);
+
+    // create a string on stack
+    let s1 = "Hello";
+    s.push_str(s1);
+    string_details(&s);
+
+    s.push_str(" rust programming");
+    string_details(&s);
+
+    let bytes = s.into_bytes();
+
+    print!(" bytes ");
+    for i in &bytes {
+        print!("{} ", i);
+    }
+    println!("\n");
+}
+
+```
+
+
 
 ### std::process
 
@@ -238,6 +351,7 @@ fn main() {
 
 **std::net::TcpListener**::
 
+|------|-------------------------|
 | `bind` | bind to the ip and port |
 | `accept` | accept connections |
 | `incoming` | accepts incoming connections |
