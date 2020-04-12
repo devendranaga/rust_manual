@@ -99,6 +99,54 @@ if res {
 
 ## std library
 
+## std::string::String
+
+`std::string::String` expose the following methods.
+
+1. new - create new string
+
+```rust
+
+let mut s = String::new();
+
+```
+
+2. push_str - push string into the string
+
+```rust
+
+let mut s = String::new();
+s.push_str("Hello");
+
+```
+
+second version of push is,
+
+```rust
+
+let mut s = String::new();
+let s1 = "Hello";
+
+s.push_str(s1);
+
+let s3 = "rust";
+
+s.push_str(s3);
+
+```
+
+3. reserve - reserve string size
+
+```rust
+
+let mut s = String::new();
+
+s.reserve(40);
+
+```
+
+```
+
 ### std::process
 
 **std::process::id**:
