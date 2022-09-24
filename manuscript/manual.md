@@ -10,6 +10,11 @@ fn main() {
 }
 ```
 
+`fn` means function.
+`main` is the starter function.
+`println!` is a macro.
+`\n` is still valid even in Rust.
+
 ## cargo
 
 **create new project:**
@@ -36,7 +41,19 @@ def = "new string";
 
 ```
 
+Non Mutable means constant. By default variables are immutable.
+
 changing the variable to other name, would result in a compiler error. Rust variables are by default mutable. Changing the value results in a compiler error.
+
+```rust
+
+let mut def = "a string";
+
+def = "new string";
+
+```
+
+Allows chaging the variable.
 
 ## print macro
 
