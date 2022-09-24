@@ -1,4 +1,23 @@
-# Rust
+# Rust from a C Programmer
+
+## Cargo
+
+Cargo is the Rust's build system.
+
+**create new project:**
+
+```bash
+cargo new <project-name>
+```
+
+**Create and Build the project:**
+
+```bash
+cd <project-name>
+cargo build
+```
+
+The binary will be under `target/debug/`.
 
 ## Introduction
 
@@ -10,28 +29,30 @@ fn main() {
 }
 ```
 
-`fn` means function.
-`main` is the starter function.
-`println!` is a macro.
-`\n` is still valid even in Rust.
+* `fn` means function.
+* `main` is the starter function.
+* `println!` is a macro.
+* `\n` is still valid even in Rust.
 
-## cargo
 
-**create new project:**
-
-```bash
-cargo new <project-name>
+```rust
+fn main() {
+    let x = 13;
+    println!("{}", x);
+}
 ```
 
-```bash
-cd <project-name>
-cargo build
-```
+The variable `x` type is automatically known to the compiler. In most of the
+times, one does not have to define the variable type.
 
-## types
+However we can still initialize variables as well. Below are the list of basic
+data types from Rust.
 
 1. signed integers: `i8`, `i16`, `i32`, `i64`, `i128`, `isize`.
-2. unsigned integers: `u8`, `u16`, `u32`, `u64`, `u128`, `usize`
+2. unsigned integers: `u8`, `u16`, `u32`, `u64`, `u128`, `usize`.
+
+The `{}` within `println!`, is a format specifier.
+
 
 ```rust
 
