@@ -1,0 +1,1 @@
+manuscript/manual.md
