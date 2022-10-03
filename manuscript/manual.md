@@ -7,7 +7,13 @@ Cargo is the Rust's build system.
 **create new project:**
 
 ```bash
-cargo new <project-name>
+cargo new <project-name> # creates binary project
+```
+
+Creating a new library is similar except give --lib after the project-name.
+
+```bash
+cargo new <project-name> --lib # creates library project
 ```
 
 **Create and Build the project:**
@@ -53,6 +59,42 @@ data types from Rust.
 
 The `{}` within `println!`, is a format specifier.
 
+Return in Rust is denoted by `->` parameter. So any function that returns
+something will have this set. For instance:
+
+Below program calculates the permutations.
+
+```rust
+
+fn permute(val: u32) -> u32 { // -> u32 meaning this function returns an unsigned 32 bit integer
+    if (val == 0) || (val == 1) {
+        1
+    } else {
+        let mut i : u32 = 1;
+        let mut res : u32 = 1;
+        while (i <= val) {
+            res *= i;
+            i = i + 1;
+        }
+        res
+    }
+}
+
+fn main() {
+    let res = permute(4);
+    println!("{}", res);
+}
+
+```
+
+Rust does not complain if we do not write `return` statement in some cases.
+
+Writing a return value without a semi colon implicitly meaning that 
+the function returns.
+
+Rust also does not allow us to use `++` operator. So we need to explicitly
+use `i = i + 1` for increment operation.
+
 ## Keyword use
 
 1. Import or rename items from other crates or modules.
@@ -84,6 +126,128 @@ def = "new string";
 ```
 
 Allows chaging the variable.
+
+
+## Bitwise operators
+
+Same bitwise operators in C does work in Rust as well.
+
+Below example provide a overview of the bitwise operations.
+
+### Rotate bits
+
+```rust
+
+fn rotate64(val: u64, pos: u32) -> u64 {
+    (val << pos) | (val << (64 - pos))
+}
+
+fn rotate32(val: u32, pos: u32) -> u32 {
+    (val << pos) | (val << (32 - pos))
+}
+
+```
+
+### Bitwise operations
+
+```rust
+
+fn main() {
+    let a:u32 = 4;
+    let b:u32 = 2;
+
+    let result = a & b;
+    println!("result & {}", result);
+
+    let result = a | b;
+    println!("result | {}", result);
+
+    let result = a ^ b;
+    println!("result ^ {}", result);
+
+    let result = a << 2;
+    println!("result << {}", result);
+
+    let result = !a;
+    println!("result ! {}", result);
+
+    let result = a >> 2;
+    println!("result >> {}", result);
+
+    let result = a == 4;
+    println!("result == {}", result);
+}
+
+```
+
+## Arrays
+
+Arrays in rust are denoted as the following.
+
+```rust
+let array: [type; number_of_items];
+
+```
+
+When assigining the elements for all elements, below expression will be enough.
+
+```rust
+let array: [u8; 10] = [0; 10];
+
+```
+
+An example of iterating elements in array is as follows.
+
+```rust
+
+fn main() {
+    let mut a : [u8; 10] = [0; 10];
+
+    a[0] = 0;
+    a[1] = 1;
+    a[2] = 2;
+
+    for item in a.iter() {
+        let x : &u8 = item;
+        println!("{}", x);
+    }
+}
+
+```
+
+## Vectors
+
+```rust
+
+let mut arr:Vec<u8> = Vec::new();
+
+```
+
+setting an element in Vector:
+
+```rust
+
+arr.push(10);
+
+```
+
+example:
+
+```rust
+
+fn main() {
+    let mut arr:Vec<u8> = Vec::new();
+
+    arr.push(10);
+    arr.push(20);
+    arr.push(255);
+
+    for i in &arr {
+        println!("{}", i);
+    }
+}
+
+```
 
 ## print macro
 

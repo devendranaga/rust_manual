@@ -5,9 +5,23 @@ use std::io::prelude::*;
 // File path
 use std::path::Path;
 
+use std::env;
+
+fn parse_content(s : &mut String)
+{
+    const delim : char = ',';
+    let items : Vec<String>;
+
+    for i in s.chars() {
+        if i == ',' {
+    }
+}
+
 fn main() {
+    let args : Vec<String> = env::args().collect();
     // create a path to the desired file
-    let path = Path::new("./main.rs");
+    //
+    let path = Path::new(&args[1]);
     let display = path.display(); /* display class / object may be? */
 
     let mut file = match File::open(&path) {
@@ -21,6 +35,6 @@ fn main() {
     match file.read_to_string(&mut s) {
         Err(why) => panic!("couldn't read file {} : {}", display, why),
         // whats _ ?
-        Ok(_) => print!("{} contains {}", display, s),
+        Ok(_) => parse_content(&mut s),
     } // why semicolon not needed here?
 }
