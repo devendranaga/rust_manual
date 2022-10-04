@@ -95,6 +95,46 @@ the function returns.
 Rust also does not allow us to use `++` operator. So we need to explicitly
 use `i = i + 1` for increment operation.
 
+## Strings
+
+Comparison of Strings is done with `==` operator just like in C++.
+
+### simple calculator program
+
+```rust
+
+use std::env; // to read command line arguments
+
+fn calculator(op: String, val1: f64, val2: f64) -> f64 {
+    let res : f64;
+
+    if op == "Add" {
+        res = val1 + val2;
+    } else if op == "Sub" {
+        res = val1 - val2;
+    } else if op == "Mul" {
+        res = val1 * val2;
+    } else if op == "Div" {
+        res = val1 / val2;
+    } else {
+        res = -1.0;
+    }
+
+    res
+}
+
+fn main() {
+    let args : Vec<String> = env::args().collect();
+    let val1 : f64 = args[2].parse().unwrap();
+    let val2 : f64 = args[2].parse().unwrap();
+
+    let ref op = &args[1];
+
+    calculator(op.to_string(), val1, val2);
+}
+
+```
+
 ## Keyword use
 
 1. Import or rename items from other crates or modules.
@@ -316,6 +356,43 @@ fn get_string(f: Fruits) -> String {
 }
 
 ```
+
+# std::env
+
+Rust provides environmental details via `std::env`. This also contain command-
+line arguments.
+
+For command line args,
+
+```rust
+
+let args : Vec<String> = env::args().collect();
+
+```
+
+to collect them in vector of strings.
+
+```rust
+
+use std::env;
+
+fn main() {
+    for arg in env::args() {
+        println!("{}", arg);
+    }
+}
+
+```
+
+`std::env::args()` is part of rust standard library.
+This function provides a iterator of the command line arguments passed.
+So a `for` can be used to iterate over it.
+
+Also, `collect` method can be used as well to collect the arguments into
+a vector of strings.
+
+The statement `use std::env` brings the `std::env` module in scope, so that
+the member functions of the `std::env` can be used from `env` directly.
 
 # File i/o in rust
 
