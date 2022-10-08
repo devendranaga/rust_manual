@@ -1,4 +1,4 @@
-# Rust from a C Programmer
+# Rust Notes from a C Programmer
 
 ## Cargo
 
@@ -24,6 +24,37 @@ cargo build
 ```
 
 The binary will be under `target/debug/`.
+
+Rust has a linter called `clippy` just like `clang` or `gcc` with
+compiler flags or a proprietary toolset to perform static code
+analysis.
+
+To run clippy,
+
+```rust
+
+cargo clippy
+
+```
+
+## Writing unit tests in rust
+
+Unit test facilities are within the `.rs` file itself. As one example,
+
+```rust
+
+#[test]
+fn test_a() {
+    // make a function call here to test the API that is being written
+}
+
+```
+
+Rust compiler potentially ignores any thing below `#[test]` declaration.
+
+`#[test]` is an attribute in Rust.
+
+One can execute the test case by running `cargo test`.
 
 ## Introduction
 
@@ -59,6 +90,22 @@ data types from Rust.
 
 The `{}` within `println!`, is a format specifier.
 
+#### Variable declaration
+
+```rust
+let v = 4;
+```
+
+means a variable that holds an integer type and contains value of 4.
+
+or in another way,
+
+```rust
+let v: u32 = 4;
+```
+
+An unsigned 32 bit integer variable v that contains value of 4.
+
 Return in Rust is denoted by `->` parameter. So any function that returns
 something will have this set. For instance:
 
@@ -93,7 +140,7 @@ Writing a return value without a semi colon implicitly meaning that
 the function returns.
 
 Rust also does not allow us to use `++` operator. So we need to explicitly
-use `i = i + 1` for increment operation.
+use `i = i + 1` for increment operation or `i += 1` works.
 
 ## Strings
 
@@ -384,6 +431,23 @@ fn main() {
 
 ```
 
+Another method is indexing and using `while` loop.
+
+```rust
+
+use std::env;
+
+fn main() {
+    let args : Vec<String> = env::args().collect();
+    let len = env::args().len();
+    let mut i : usize = 0;
+
+    while i < len {
+        println!("{}", args[i]);
+        i += 1;
+    }
+```
+
 `std::env::args()` is part of rust standard library.
 This function provides a iterator of the command line arguments passed.
 So a `for` can be used to iterate over it.
@@ -393,6 +457,46 @@ a vector of strings.
 
 The statement `use std::env` brings the `std::env` module in scope, so that
 the member functions of the `std::env` can be used from `env` directly.
+
+when indexing with the `for`, the first value of the collected args is always
+the program name.
+
+# Standard library
+
+## std::io
+
+Example of `std::io::stderr` and `std::io::stdout` and `std::io::stdin`
+are described in below example.
+
+```rust
+
+use std::io::Write;
+
+fn main() {
+    writeln!(std::io::stderr(), "error message").unwrap();
+    writeln!(std::io::stdout(), "error message").unwrap();
+
+    let mut buf = String::new();
+    let stdin = std::io::stdin();
+    stdin.read_line(&mut buf).unwrap();
+    println!("{}", buf);
+}
+
+```
+
+The macro `writeln!` is used when namespace `std::in::Write` is brought
+in scope.
+
+the handles `stdout()` and `stderr()` are used in combination with
+the `writeln!` function.
+
+The `unwrap` method is used if incase `writeln!` fails, the program
+will panic.
+
+the stdin handle is part of `std::io::stdin()`. It contains the
+`read_line` method which accepts a buffer.
+
+buf is initialized with `String::new()` method.
 
 # File i/o in rust
 
