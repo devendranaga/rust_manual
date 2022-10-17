@@ -344,7 +344,9 @@ fn main() {
 
 printing an element will need to use `"{}"` 
 
-to print two values, we must use `"{}"` two times
+To print two values, we must use `"{}"` two times.
+
+New line can still be printed with using the `\n` character.
 
 
 ```rust
@@ -529,5 +531,29 @@ fn main() {
         Ok(_) => print!("{} contains {}", display, s),
     } // why semicolon not needed here?
 }
+```
+
+### str primitive type
+
+the `str` type is the most primitive type.
+
+Below are some of the implementations of the `str` type.
+
+1. `len` : returns length of the string in bytes.
+2. `is_empty` : returns true if string has 0 bytes.
+
+
+```rust
+fn main() {
+
+    let string = "rustlang on fc36";
+    let emptystr = "";
+    let len = string.len(); // get length of the string
+
+    println!("length {}", len);
+
+    println!("empty str: {} {}", string.is_empty(), emptystr.is_empty());
+}
+
 ```
 
