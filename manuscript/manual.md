@@ -106,6 +106,12 @@ let v: u32 = 4;
 
 An unsigned 32 bit integer variable v that contains value of 4.
 
+Rust variable declaration follows the `golang` type of variable declarations.
+
+```rust
+let variable_name : variable_type = value;
+```
+
 Return in Rust is denoted by `->` parameter. So any function that returns
 something will have this set. For instance:
 
@@ -743,6 +749,8 @@ impl Person {
 }
 ```
 
+See that the `struct` name and the `impl` name are same.
+
 A more detailed explanation of using `impl` is below. The program below sets the structures from within `impl`  types of the structures. And the member functions defined by their implementations are called from `main`.
 
 ```rust
@@ -810,5 +818,39 @@ fn main() {
     evt_data.print();
 }
 
+```
+
+The `self` parameter is used to access the structure members. The `self` parameter is not really mandatory unless used. But if the `self` parameter is required, it must be always placed as first argument for the function. `self` can be mutable as well. 
+
+For example,
+
+```rust
+struct Name {
+	person : String
+}
+
+impl Name {
+	fn set(&mut self, name : String) {
+		self.person = name;
+	}
+
+	fn print(&self) { println!("name: {}", self.name); }
+}
+```
+
+The above implementation has `set` method being passed another argument `name` of type `String`.
+
+The calling from main is always with one argument because the type is declared. For example, the following
+
+```rust
+
+fn main() {
+	let mut n = Name {
+		person : "Dev".to_string(),
+	};
+
+	n.set("dev".to_string());
+	n.print();
+}
 ```
 
