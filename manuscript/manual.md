@@ -715,8 +715,7 @@ let variable_name = structure-type {
 
 ```
 
-if there are non structure variables within the structure, then the following
-    will apply.
+if there are non structure variables within the structure, then the following will apply.
 
 ```rust
 
@@ -726,4 +725,90 @@ let variable_name = structure-type {
 
 ```
 
+## Impl
+
+Rust does not have objects like in C++. But it provides such option with `impl`.
+
+For example,
+
+```rust
+struct Person {
+	name : String
+}
+
+impl Person {
+	fn print_name(&self) {
+		println!("name is {}", self.name);
+	}
+}
+```
+
+A more detailed explanation of using `impl` is below. The program below sets the structures from within `impl`  types of the structures. And the member functions defined by their implementations are called from `main`.
+
+```rust
+struct Timestamp {
+    year : u32,
+    mon : u32,
+    day : u32,
+    hour : u32,
+    min : u32,
+    sec : u32,
+}
+
+impl Timestamp {
+    fn clear(&mut self) {
+        self.year = 0;
+        self.mon = 0;
+        self.day = 0;
+        self.hour = 0;
+        self.min = 0;
+        self.sec = 0;
+    }
+
+    fn print(&self) {
+        println!("year: {} mon: {} day: {} hour: {} min: {} sec: {}",
+                        self.year, self.mon, self.day, self.hour,
+                        self.min, self.sec);
+    }
+}
+
+struct EventLogData {
+    evt_type : u32,
+    ts : Timestamp,
+}
+
+impl EventLogData {
+    fn clear(&mut self) {
+        self.evt_type = 0;
+        self.ts.clear();
+    }
+
+    fn print(&self) {
+        println!("evt_type: {}", self.evt_type);
+        self.ts.print();
+    }
+}
+
+fn main() {
+    let mut evt_data = EventLogData {
+        evt_type : 0,
+        ts : Timestamp {
+            year : 2018,
+            mon : 1,
+            day : 1,
+            hour : 1,
+            min : 1,
+            sec: 1,
+        },
+    };
+
+    println!("before clear\n");
+    evt_data.print();
+    evt_data.clear();
+
+    println!("after clear\n");
+    evt_data.print();
+}
+
+```
 
