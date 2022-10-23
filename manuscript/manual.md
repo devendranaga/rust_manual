@@ -302,6 +302,60 @@ fn main() {
 
 ```
 
+definition of array involve the use of `[]` operator. Within it, type and length
+of array follows.
+
+```rust
+
+let array : [type; length]
+
+```
+
+Arrays always need to be initialized. An initialization format follows an equals
+to sign followed by `[]`, within it defines the initial value and length of
+array to initialize it with.
+
+```rust
+
+let array : [type; length] = [initial value; length]
+
+```
+
+The `length` at the end must be same as the length at the initializer.
+
+
+```rust
+
+let array : [u8; 10] = [0; 10];
+
+```
+
+Another way to set values in array is to use indexing operator.
+
+Array indices are of type `usize` always. Anything other than the use of `usize`
+results in compiler error.
+
+```rust
+
+fn main() {
+    let mut a1 : [u8; 12] = [0, 12];
+    let mut i : usize = 0;
+    let mut val : u8 = 0;
+
+    while i < 12 {
+        a[i] = val;
+        val += 1;
+        i += 1;
+    }
+
+    for item in a1 {
+        println!("{}", item);
+    }
+}
+
+```
+
+
 ## Vectors
 
 ```rust
@@ -583,6 +637,11 @@ fn main() {
 }
 
 ```
+
+Structure variables does not end with a semi colon like in C or C++. They end
+with a comma `,`. Structure does not require a semi colon after it.
+
+Unlike C++, defining functions within structures is prohibited by rust.
 
 Structures in rust always require initialization before using anywhere.
 
