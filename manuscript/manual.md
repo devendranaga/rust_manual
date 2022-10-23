@@ -557,3 +557,114 @@ fn main() {
 
 ```
 
+### Structures
+
+Defining structures is as follows.
+
+```rust
+struct Person {
+    name : String,
+    age : u32,
+}
+
+fn main() {
+    let name = String::from("hello");
+    let age = 32;
+
+    let p = Person { name, age };
+
+    let p1 = Person {
+        name : "hello".to_string(),
+        age : 33,
+    };
+
+    println!("p name: {} age: {}", p.name, p.age);
+    println!("p1 name: {} age: {}", p1.name, p1.age);
+}
+
+```
+
+Structures in rust always require initialization before using anywhere.
+
+Structs can be put in vectors. Below code defines the `EventData` structure and
+creates a vector of event list.
+
+```rust
+struct EventData {
+    evt_type : u32,
+    evt_len : u32,
+    ethertype: u16,
+}
+
+fn main() {
+    let evt_msg1 = EventData {
+        evt_type : 2,
+        evt_len : 100,
+        ethertype : 0x0800,
+    };
+
+    let evt_msg2 = EventData {
+        evt_type : 4,
+        evt_len : 101,
+        ethertype : 0x0801,
+    };
+
+    let mut evt_list : Vec<EventData> = Vec::new();
+
+    evt_list.push(evt_msg1);
+    evt_list.push(evt_msg2);
+
+    for evt in evt_list {
+        println!("evt_type: {} evt_len: {} ethertype: {}",
+                    evt.evt_type, evt.evt_len,
+                    evt.ethertype);
+    }
+}
+
+```
+
+see the vector allocation above. uninitialized vectors are not allowed as well.
+
+structs can be nested as well.
+
+For example,
+
+```rust
+struct A {
+    a1 : u32,
+}
+
+struct B {
+    a1 : a,
+}
+
+let b1 = B {
+    b1 : A { a1 : 4 }
+};
+
+```
+
+Nested initialization requires initializing the structures full below.
+
+The general pattern is the following
+
+```rust
+
+let variable_name = structure-type {
+    variable_of_struct : structure-type { variable : value }
+}
+
+```
+
+if there are non structure variables within the structure, then the following
+    will apply.
+
+```rust
+
+let variable_name = structure-type {
+    variable_of_struct : value
+}
+
+```
+
+
