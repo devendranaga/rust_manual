@@ -357,6 +357,19 @@ fn main() {
 
 ```
 
+Converting the buffer to string `std::from_utf8(&ref buf)`. Since it may fail, make a call to `unwrap` or `expect`.
+
+```rust
+use std::str;
+
+fn main() {
+	let buf = [104, 101, 108, 108, 111];
+	let s = str::from_utf8(&buf).unwrap().to_string();
+	
+	println!("{}", s);
+}
+```
+
 ## Strings
 
 Strings are defined with the `String` type or the `str` type.
@@ -406,6 +419,24 @@ fn main() {
 	let mut cont = [apple, banana].join(" ");
 
 	println!("{}", cont);
+}
+```
+
+To convert a string to a binary data, use `as_bytes()`.
+
+This can be useful when sending strings over a network connection for instance.
+
+For example,
+
+```rust
+fn main() {
+	let string_data = "hello".as_bytes();
+	let mut i = 0;
+	
+	while i < string_data.len() {
+		println!("{}", string_data[i]);
+		i += 1;
+	}
 }
 ```
 
@@ -965,6 +996,58 @@ fn main() {
 	println!("{}", var1);
 }
 ```
+
+## Sockets
+
+It would be really nice to make syscalls directly from rust layer. But rust already offers them in the standard library.
+Sockets and network functionality is present in `std::net`.
+
+### Udp sockets
+
+Udp sockets implemented in `std::net::UdpSocket`.
+
+Below program sends one packet over the lo interface over 1235.
+
+```rust
+use std::net::UdpSocket;
+
+fn main() {
+	let socket = UdpSocket::bind("127.0.0.1:1234").unwrap();
+	let send_buf : String = String::from("hello");
+	
+	socket.send_to(send_buf.as_bytes(), "127.0.0.1:1235").unwrap();
+}
+```
+
+One can monitor with `nc` on linux with `nc -l --udp 1235` to listen for the udp payload.
+
+The method `send_to` accepts two arguments,
+
+1. send buffer as `u8 []`.
+2. destination address in `server:port` string format.
+
+Writing a UDP Server is similar.
+
+```rust
+use std::str;
+use std::net::UdpSocket;
+
+fn main() {
+	let socket = UdpSocket::bind("127.0.0.1:1234").unwrap();
+	let mut buf = [0; 100];
+	
+	let (amt, _src) = socket.recv_from(&mut buf).unwrap();
+	let rx_data = &mut buf[..amt];
+	let rx_msg = str::from_utf8(rx_data).unwrap().to_string();
+	
+	println!("{}", rx_msg);
+}
+```
+
+One can send message with `nc` on linux with `nc 127.0.0.1 1234` and write text on the console to send to the server.
+
+The `src` is set as `_src` instead as we are not using it. Any variable that is not used in rust must be prefixed with `_`.
+
 
 ## Hardware
 
