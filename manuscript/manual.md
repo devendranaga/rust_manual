@@ -366,6 +366,13 @@ Declaring a string is as follows.
 ```rust
 let apple = "apple".to_string();
 ```
+
+Another way is,
+
+```rust
+let apple = String::from("apple");
+```
+
 For comparing two strings two of many approaches can be used. For example with `==`
  and `string.eq(string_2)`.
  
@@ -894,6 +901,54 @@ fn main() {
 }
 ```
 
+
+## RAII
+
+RAII is Resource Acquisition Is Initialization. C++ support this by automatically releasing memory / resources when a block of code goes out of scope.
+
+Rust does support the RAII as well. For example,
+
+```rust
+fn create_str() {
+	let str = String::new();
+}
+
+fn main() {
+	create_str();
+}
+```
+
+In `create_str`  the variable `str` is allocated and when the function goes out of scope, its automatically freed up. We do not have to free it. 
+
+Running a `valgrind` produces no leaks proving that the memory is automatically freed.
+
+## Ownerships
+
+Ownerships are very important concepts in rust.  For example,
+
+```rust
+fn main() {
+	let a = 4;
+	let b = a;
+}
+```
+
+Is only a copy of variable a into b as they are not allocated on the heap.
+
+now consider a being allocated on heap.
+
+```rust
+fn main() {
+	let a1 = Box::new(4u32);
+	let b1 = a1;
+}
+```
+
+This assignment `let a1 = Box::new(4u32)` allocates a1 on the heap and sets value 4.
+The assingment `b1 = a1` moves the ownership from a1 to b1.
+Any accesses to a1 now results in a compiler error as the reference is moved.
+
+And no need to free b1 because the compiler will automatically insert the free code, soon the variable goes out of scope.
 
 ## Hardware
 
