@@ -148,10 +148,6 @@ the function returns.
 Rust also does not allow us to use `++` operator. So we need to explicitly
 use `i = i + 1` for increment operation or `i += 1` works.
 
-## Strings
-
-Comparison of Strings is done with `==` operator just like in C++.
-
 ### simple calculator program
 
 ```rust
@@ -361,6 +357,50 @@ fn main() {
 
 ```
 
+## Strings
+
+Strings are defined with the `String` type or the `str` type.
+
+Declaring a string is as follows.
+
+```rust
+let apple = "apple".to_string();
+```
+For comparing two strings two of many approaches can be used. For example with `==`
+ and `string.eq(string_2)`.
+ 
+```rust
+fn main() {
+    let apple = "apple".to_string();
+    let banana = "banana".to_string();
+
+    println!("{}", apple == banana);
+    println!("{}", apple.eq(&banana));
+}
+
+```
+
+Joining strings can be done with the `+` or with the `.join` operator.
+
+For example,
+
+```rust
+fn main() {
+	let apple = "apple".to_string();
+	let banana = "banana".to_string();
+
+	let mut conc = apple + " " + &banana;
+
+	println!("{}", conc);
+
+	// comment below line or above line for compilation
+	// or use
+
+	let mut cont = [apple, banana].join(" ");
+
+	println!("{}", cont);
+}
+```
 
 ## Vectors
 
