@@ -652,22 +652,39 @@ use std::path::Path;
 
 fn main() {
     // create a path to the desired file
-    let path = Path::new("./main.rs");
-    let display = path.display(); /* display class / object may be? */
+    let path = Path::new("./src/main.rs");
+    let mut file = File::open(&path).unwrap();
+    let mut data = String::new();
+    
+    let res = match file.read_to_string(&mut data) {
+    	Err(why) => panic!("failed to read from file {}", why),
+	Ok(res) => res,
+    };
+    
+    println!("{}", data);
+}
+```
 
-    let mut file = match File::open(&path) {
-        Err(why) => panic!("couldn't open file {} : {}", display, why),
-        Ok(file) => file,
-    }; // why semicolon needed here?
+Copy contents of one file to other.
 
-    // doesn't seem to allocate memory here though does it?
-    let mut s = String::new();
-    // reads entire file into a string
-    match file.read_to_string(&mut s) {
-        Err(why) => panic!("couldn't read file {} : {}", display, why),
-        // whats _ ?
-        Ok(_) => print!("{} contains {}", display, s),
-    } // why semicolon not needed here?
+```rust
+use std::fs::File;
+use std::io::prelude::*;
+use std::path::Path;
+
+fn main() {
+	let path = Path::new("./src/main.rs");
+	let mut file = File::open(&path).unwrap();
+	let mut file_w = File::create("foo.rs").unwrap();
+	
+	let mut data = String::new();
+	let res = match file.read_to_string(&mut data) {
+		Err(why) => panic!("failed to read from file {}", why);
+		Ok(res) => match file_w.write_all(data.as_bytes()) {
+			Err(why) => panic!("failed to write to file {}", why);
+			Ok(res) => res,
+		},
+	};
 }
 ```
 
@@ -996,6 +1013,44 @@ fn main() {
 	println!("{}", var1);
 }
 ```
+
+## Time
+
+Duration is part of `std::time` API which is used for many purposes, for example used in `sleep`.
+
+
+```rust
+use std::{thread, time}
+
+fn main() {
+	let one_second = time::Duration::from_secs(1);
+	let one_millisecond = time::Duration::from_millis(1000);
+	let one_microsecond = time::Duration::from_micros(1000000);
+	
+	thread::sleep(one_second);
+	thread::sleep(one_millisecond);
+	thread::sleep(one_microsecond);
+}
+```
+
+### Sleep
+
+Sleep is part of rustlang standard library. `std::time` provides duration and `std::thread` provides `sleep`.
+
+```rust
+use std::{thread, time}
+
+fn main() {
+	let one_second = time::Duration::from_millis(1000);
+	
+	println!("start");
+	thread::sleep(one_second);
+	println!("stop");
+}
+```
+
+
+
 
 ## Sockets
 
