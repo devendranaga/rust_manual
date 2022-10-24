@@ -950,5 +950,21 @@ Any accesses to a1 now results in a compiler error as the reference is moved.
 
 And no need to free b1 because the compiler will automatically insert the free code, soon the variable goes out of scope.
 
+Even the mutability and ownerships is changed when the ownership is transfered,
+
+For example,
+
+```rust
+fn main() {
+	let var = Box::new(4u32);
+
+	println!("{}", var);
+	let mut var1 = var;
+
+	*var1 = 14;
+	println!("{}", var1);
+}
+```
+
 ## Hardware
 
