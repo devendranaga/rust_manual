@@ -688,6 +688,50 @@ fn main() {
 }
 ```
 
+File types:
+
+`std::os::unix::fs::FileTypeExt` provides interfaces for unix / linux based systems for file types.
+`std::fs` needed as well.
+
+Below program shows example of file types
+
+```rust
+use std::fs;
+use std::os::unix::fs::FileTypeExt;
+use std::env;
+
+fn main() {
+	let args : Vec<String> = env::args().collect();
+	match fs::metadata(&args[1]) {
+		Err(why) => panic!("failed to get file {}", why),
+		Ok(metadata) => {
+			let file_type = metadata.file_type();
+			
+			if file_type.is_dir() == true {
+				println!("file_type : directory");
+			} else if file_type.is_file() == true {
+				println!("file_type : file");
+			} else if file_type.is_block_device() == true {
+				println!("file_type : block device");
+			}
+		},
+	};
+}
+```
+
+Below are the list of file types:
+
+```rust
+pub trait FileTypeExt {
+    fn is_block_device(&self) -> bool;
+    fn is_char_device(&self) -> bool;
+    fn is_fifo(&self) -> bool;
+    fn is_socket(&self) -> bool;
+}
+```
+
+
+
 ### str primitive type
 
 the `str` type is the most primitive type.
