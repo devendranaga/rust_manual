@@ -370,6 +370,12 @@ fn main() {
 }
 ```
 
+Passing an array to a function as an immutable reference.
+
+```rust
+fn function(array : &[u32]);
+```
+
 ## Strings
 
 Strings are defined with the `String` type or the `str` type.
@@ -442,6 +448,8 @@ fn main() {
 
 ## Vectors
 
+Initialize the array of bytes.
+
 ```rust
 
 let mut arr:Vec<u8> = Vec::new();
@@ -454,6 +462,12 @@ setting an element in Vector:
 
 arr.push(10);
 
+```
+
+passing a Vector to a function as an immutable reference.
+
+```rust
+fn function(list : &Vec<u8>);
 ```
 
 example:
@@ -601,6 +615,8 @@ the member functions of the `std::env` can be used from `env` directly.
 when indexing with the `for`, the first value of the collected args is always
 the program name.
 
+To collect args skipping the program name use `env::args().skip(1).collect()`.
+
 # Standard library
 
 ## std::io
@@ -688,7 +704,7 @@ fn main() {
 }
 ```
 
-File types:
+**File types:**
 
 `std::os::unix::fs::FileTypeExt` provides interfaces for unix / linux based systems for file types.
 `std::fs` needed as well.
@@ -719,7 +735,7 @@ fn main() {
 }
 ```
 
-Below are the list of file types:
+Below are the list of file type traits available in rust.
 
 ```rust
 pub trait FileTypeExt {
@@ -729,7 +745,6 @@ pub trait FileTypeExt {
     fn is_socket(&self) -> bool;
 }
 ```
-
 
 
 ### str primitive type
