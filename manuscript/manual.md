@@ -469,6 +469,20 @@ when defining the type itself to the variable, the compiler could recognize the 
 
 Implicit is more easy to remember syntactically.
 
+Conversion functions can crash and calls `panic!` resulting in the program break. Most of the times we do not want this behavior,
+main reason is that programs run indefinitely and should not crash.
+
+Thus, handling it is part of good programming. Here's an example of how to handle such behavior.
+
+```rust
+let s1 = "dev".to_string();
+
+match s1.parse::<i32>() {
+	Ok(val) => println!("{}", val),
+	Err(why) => println!("invalid number {}", why),
+}
+```
+
 
 
 ## Vectors
