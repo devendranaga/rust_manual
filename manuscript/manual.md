@@ -446,6 +446,31 @@ fn main() {
 }
 ```
 
+### Conversions
+
+conversion of `string` to `integer` or other types is possible in rust.
+
+Converting string to integer: 
+
+```rust
+let s1 = "27".to_string();
+let v_int = s1.parse::<f32>().unwrap();
+```
+
+The conversion syntax it is basically, `string.parse::<type>.unwrap()`.
+Or otherwise one can do directly with the type setting.
+
+```rust
+let s1 = "27".to_string();
+let v_int : i32 = s1.parse().unwrap();
+```
+
+when defining the type itself to the variable, the compiler could recognize the corresponding call to the conversion function.
+
+Implicit is more easy to remember syntactically.
+
+
+
 ## Vectors
 
 Initialize the array of bytes.
@@ -1161,6 +1186,56 @@ fn main() {
 One can send message with `nc` on linux with `nc 127.0.0.1 1234` and write text on the console to send to the server.
 
 The `src` is set as `_src` instead as we are not using it. Any variable that is not used in rust must be prefixed with `_`.
+
+
+## Generics
+
+Generics are similar to macros and templates. For example one can write them the same way as template programming in C++.
+
+For example the below program computes minimum of two numbers of any types.
+
+```rust
+
+fn min<T>(a : T, b : T) -> T {
+	if a < b {
+		a
+	} else {
+		b
+	}
+}
+
+fn main() {
+	let o = min(1, 2);
+	let o1 = min(1.1, 2.2);
+	println!("{} {}", o, o1);
+}
+```
+
+However, the above statement is too generic, meaning that strings cannot be compared that way or any structure types unless there's some specific overloaded implementation.
+
+Rust compiler fails to compile this due to a large set of possible types for T.
+
+So, instead the suggest we get from the compiler is to use `std::cmp::PartialOrd` to be added after T in the function definition.
+
+Adding it will look like below,
+
+```rust
+
+fn min<T: std::cmp::PartialOrd(a: T, b: T) -> T {
+	if a < b {
+		a
+	} else {
+		b
+	}
+}
+
+fn main() {
+	let o = min(1, 2);
+	let o1 = min(1.1, 2.2);
+	println!("{} {}", o, o1);
+}
+```
+
 
 
 ## Hardware
