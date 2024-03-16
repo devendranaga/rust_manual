@@ -1047,6 +1047,48 @@ fn main() {
 }
 ```
 
+**Zeroing arrays:**
+
+```rust
+let mut array : [u8; 12] = Default::default(); // one way to do this
+```
+
+```rust
+let mut array : [u8; 512] = [0; 512]; // another way to do this
+```
+
+Genreally `Default::default` does not work on larger arrays.
+
+**Zeroing structs:**
+
+```rust
+struct S {
+    v : i32,
+    r : i32
+}
+```
+
+If the implementor does not define the structure zero'ing, generally `std::mem::zeroed` can be used.
+
+```rust
+let mut s : S = std::mem::zeroed();
+```
+
+**Getting sizeof of any struct or array:**
+
+```rust
+struct S {
+    v : i32,
+    r : i32
+}
+```
+
+The `std::mem::size_of_val` can be used to get the size of a structure or an array.
+
+```rust
+let s : S;
+let mut size = std::mem::size_of_val(&s);
+```
 
 ## RAII
 
